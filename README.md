@@ -49,6 +49,5 @@ If you wish to use your own Pinecone account and replicate API credentials, foll
 4. Save the changes to the `secrets.toml` file.
 
 ## Video Demo
-For a visual walkthrough of the Streamlit application, watch the included [demo video](video/demo.mkv). The video provides a comprehensive overview of the application's features and functionalities.
-
-Feel free to reach out for any further assistance or clarification. Happy streaming!
+For a visual walkthrough of the Streamlit application, watch the included demo video. The video provides a comprehensive overview of the application's features and functionalities.
+<video width="630" height="300" src="video\demo.mkv"></video>
