@@ -53,5 +53,5 @@ For a visual walkthrough of the Streamlit application, watch the included demo v
 <<<<<<< HEAD
 [![Video]](https://github.com/username/reponame/blob/branch/video.mp4?raw=true)
 =======
-![Alt Text](https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif)
+![Alt Text]([https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif](https://github.com/irfanfadhullah/Chatbot-Llama/blob/main/video/demo.gif)https://github.com/irfanfadhullah/Chatbot-Llama/blob/main/video/demo.gif)
 >>>>>>> origin
