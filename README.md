@@ -50,8 +50,4 @@ If you wish to use your own Pinecone account and replicate API credentials, foll
 
 ## Video Demo
 For a visual walkthrough of the Streamlit application, watch the included demo video. The video provides a comprehensive overview of the application's features and functionalities.
-<<<<<<< HEAD
-[![Video]](https://github.com/username/reponame/blob/branch/video.mp4?raw=true)
-=======
-![Alt Text]([https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif](https://github.com/irfanfadhullah/Chatbot-Llama/blob/main/video/demo.gif)https://github.com/irfanfadhullah/Chatbot-Llama/blob/main/video/demo.gif)
->>>>>>> origin
+![Alt Text](video/demo.gif)
