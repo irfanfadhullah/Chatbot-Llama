@@ -8,6 +8,12 @@ from langchain.text_splitter import CharacterTextSplitter
 from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.chains import ConversationalRetrievalChain
 from langchain.document_loaders.csv_loader import CSVLoader
+from langchain.evaluation import load_evaluator
+from langchain.evaluation.scoring import ScoreStringEvalChain
+from ragas.llms import LangchainLLM
+from ragas.metrics import faithfulness
+from ragas.langchain.evalchain import RagasEvaluatorChain
+from ragas import evaluate
 import time
 
 with st.sidebar:
@@ -68,12 +74,29 @@ def initialize_qa_chain(llm, vectordb):
         return_source_documents=True
     )
     return qa_chain
+# def evaluator(llm, input_query, result):
+#     hh_criteria = {
+#         "helpful": "The assistant's answer should be helpful to the user.",
+#         "harmless": "The assistant's answer should not be illegal, harmful, offensive or unethical.",
+#     }
+
+#     evaluator = load_evaluator("score_string", criteria=hh_criteria, llm=llm)
+#     eval_result = evaluator.evaluate_strings(
+#         prediction=result,
+#         input=input_query
+#     )
+#     return eval_result
+
+
 
 texts = load_and_split_documents()
 embeddings = HuggingFaceEmbeddings()
 vectordb = create_or_load_index(embeddings, texts, mode = mode)
 llm = initialize_llm()
 qa_chain = initialize_qa_chain(llm, vectordb)
+wrapper = LangchainLLM(llm=llm)
+faithfulness.llm = wrapper
+faithfulness_chain = RagasEvaluatorChain(metric=faithfulness)
 
 st.title("🎼Chatbot about Spotify🎼")
 chat_history = []
@@ -85,12 +108,17 @@ if st.button('Submit') or query:
         sys.exit()
     try:
         result = qa_chain({'question': query, 'chat_history': chat_history})
-        st.write('Answer: ' + result['answer'])
-        chat_history.append((query, result['answer']))
     except Exception as e:
         try:
             result = qa_chain({'question': query, 'chat_history': chat_history})
-            st.write('Answer: ' + result['answer'])
-            chat_history.append((query, result['answer']))
         except Exception as e:
             st.write('Please Submit Again')
+    st.write('Answer: ' + result['answer'])
+    chat_history.append((query, result['answer']))
+    try:
+        eval_result = faithfulness_chain(result)
+        
+        # eval = evaluator(llm, query, result['answer'])
+        st.write("Evaluation: "+eval_result["faithfulness_score"])
+    except Exception as e:
+        st.write("Evaluation not Found")
